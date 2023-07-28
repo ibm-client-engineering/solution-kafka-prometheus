@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kafka-jmx-monitor
+  namespace: cp4i
+  labels:  
+    app: kafka-jmx-monitor 
+spec:
+  containers:
+  - name: kafka-jmx-monitor
+    image: registry.watkinslabs.com/kafka-jmx-monitor:latest
+    securityContext:
+      allowPrivilegeEscalation: false      
+      capabilities:
+        drop:
+          - all    
+    env:
+    - name: jmx_user
+      valueFrom:
+        secretKeyRef:
+          name: eventstreams-kafka-jmx
+          key: jmx-username
+    - name: jmx_pass
+      valueFrom:
+        secretKeyRef:
+          name: eventstreams-kafka-jmx
+          key: jmx-password
+    envFrom:
+    - configMapRef:
+        name: kafka-jmx-monitor-config    
+    ports:
+    - containerPort: 8080
+    volumeMounts:
+    - name: kafka-jmx-monitor-config    
+      mountPath: /opt/kafka-jmx-monitor/metrics.txt
+      subPath: metrics.txt
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 3000
+    fsGroup: 2000    
+    seccompProfile:
+      type: RuntimeDefault    
+  volumes:
+  - name: kafka-jmx-monitor-config    
+    configMap:
+      name: kafka-jmx-monitor-config    
+  imagePullSecrets:
+  - name: chris-registry
