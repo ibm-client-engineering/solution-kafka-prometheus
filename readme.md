@@ -125,7 +125,7 @@ kubectl create namespace prometheus
 ```
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 ```
-```
+
 ## Install prometheus
 ```
 helm upgrade -i prometheus prometheus-community/prometheus \
