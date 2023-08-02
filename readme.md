@@ -21,21 +21,31 @@
  Preqs
   - kafkacat
   
- Zookeeper Service
- Zookeeper Deployment
+ Zookeeper
+   Zookeeper Service
+   Zookeeper Deployment
  Kafka Service
  Kafka Deployment
  Prometheus Deployment
  Custom JMX Monitor
 
+## PREQS
 
+-  (kcat) for message generation
 ```
-## Ensure you have kafkacat (kcat) installed on your system for message generation
 sudo dnf install kafkacat 
+```
+
+- helm for installing the prometheus chart
+```
+$ curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+$ chmod 700 get_helm.sh
+$ ./get_helm.sh
+```
 
 
 
-
+# Zookeeper
 
 ## Create the Zookeeper Deployment (3 nodes)
 ```
