@@ -178,19 +178,6 @@ For more information on running Prometheus, visit:
 https://prometheus.io/
 ```
 
-## Open the prometheus UI
-- setup a port-forwarding session for prometheus using the make command
-- open your  browser to localhost:9090
-```
-make pf-prometheus 
-
-PROMETHEUS_NS=prometheus;\
-PROMETHEUS_SERVER=prometheus-server-758d4c978c-cddlk; \
-kubectl port-forward  $PROMETHEUS_SERVER -n $PROMETHEUS_NS 9090
-
-```
-![Prometheus UI](assets/prometheus-ui.png)
-
 
 ## Validate prometheus
 ```
@@ -207,6 +194,21 @@ prometheus-prometheus-node-exporter-th9bt          1/1     Running   0          
 prometheus-prometheus-pushgateway-dfbf8b54-96kg8   1/1     Running   0          50s
 prometheus-server-758d4c978c-cddlk                 2/2     Running   0          50s
 ```
+
+## Open the prometheus UI
+- setup a port-forwarding session for prometheus using the make command
+- open your  browser to localhost:9090
+```
+make pf-prometheus 
+
+PROMETHEUS_NS=prometheus;\
+PROMETHEUS_SERVER=prometheus-server-758d4c978c-cddlk; \
+kubectl port-forward  $PROMETHEUS_SERVER -n $PROMETHEUS_NS 9090
+
+```
+![Prometheus UI](assets/prometheus-ui.png)
+
+
 
 
 ## TESTING KAFKA
@@ -267,3 +269,18 @@ zoo2         LoadBalancer   10.100.175.26    k8s-kafkajmx-zoo2-1a51e6edaf-48d45b
 zoo3         LoadBalancer   10.100.223.148   k8s-kafkajmx-zoo3-6a383ef429-e2aa947cf2094fe4.elb.us-east-1.amazonaws.com       2181:30159/TCP,2888:30905/TCP,3888:31708/TCP   20h
 
 ```
+
+
+## Adding some graphs to prometheus
+Navigate to localhost:9090 and click on the graphs tab. 
+using the ui you can quickly explore metrics and visualize them
+This metric represents -> kafka_server_brokertopicmetrics_messagesin_total
+![Prometheus UI](assets/prometheus-metric1.png)
+
+
+## Check out the listed targets for prometheus
+Navigate to localhost:9090 and click on the status menu and select targets
+- notice more thanthe kafka targets are available. prometheus scans for annotations of what to monitor
+![Prometheus Targets](assets/prometheus-targets.png)
+
+
