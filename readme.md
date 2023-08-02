@@ -47,24 +47,26 @@ $ ./get_helm.sh
 
 # Zookeeper
 
-## Create the Zookeeper Deployment (3 nodes)
+## Zookeeper Deployment (3 nodes)
 ```
 kubectl create -f yaml/zookeeper-deployment.yaml -n kafka-jmx-monitor
 ```
 
-## Create the Zookeeper Services
+## Zookeeper Services
 ```
 kubectl create -f yaml/zookeeper-service.yaml -n kafka-jmx-monitor
 ```
 
-## Create the Kafka Services
+# Kafka
+
+##  Kafka Services
 The kafka services must be created before the cluster, so that you can get the DNS entries for the host names
 ```
 kubectl create -f yaml/zookeeper-service.yaml -n kafka-jmx-monitor
 ```
 
 
-# Get the Kafka service DNS entries
+## Get the Kafka service DNS entries
 ```
 kubectl get services -n kafka-jmx-monitor
 
@@ -77,7 +79,7 @@ zoo2     LoadBalancer   10.100.89.23     k8s-kafkajmx-zoo2-1ffc3a1790-a113317039
 zoo3     LoadBalancer   10.100.253.18    k8s-kafkajmx-zoo3-113049e7eb-8d86cc568e189a8e.elb.us-east-1.amazonaws.com     2181:31369/TCP,2888:31831/TCP,3888:30800/TCP   69s
 ```
 
-## Update the kafka cluster yaml
+## Update the kafka-cluster.yaml
 Update the kafka-cluster.yaml to reference the kafka instance DNS entries. the kafka1 entry matches the kafka1 pod.
 The entries are 2 per pod. KAFKA_OPTS.server_hostname and KAFKA_ADVERTISED_HOST_NAME.value
 ```
@@ -91,14 +93,14 @@ The entries are 2 per pod. KAFKA_OPTS.server_hostname and KAFKA_ADVERTISED_HOST_
 ....
 ```
 
-## Create the Kafka cluster
+## Kafka cluster
 ```
 kubectl create  -f yaml/kafka-cluster.yaml -n kafka-jmx-monitor
 ```
 - give it a minute to spin up and connect, and then validate that its running 
 
 
-# Validate kafka
+## Validate kafka
 get the service dns entry for one of the brokers and use kcat to validate them
 ```
 kcat -L -b k8s-kafkajmx-kafka1-af652f4188-1a664c27aa4d0461.elb.us-east-1.amazonaws.com:9092/1
@@ -113,6 +115,7 @@ Metadata for all topics (from broker 1: k8s-kafkajmx-kafka1-af652f4188-1a664c27a
 ```
 
 
+# Prometheus
 ## Prometheus setup
 ```
 kubectl create namespace prometheus
@@ -211,13 +214,13 @@ open 2 terminals, one will be for the producer, the other for the consumer
 - uses the following make commands to send some test data through
 
 ```
-# Populate kafka with some Data 
+## Populate kafka with some Data 
 make populate
 
 ```
 
 ```
-# Populate kafka with some Data 
+## Populate kafka with some Data 
 make consumer
 
 ```
