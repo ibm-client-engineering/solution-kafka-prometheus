@@ -278,12 +278,11 @@ zoo3         LoadBalancer   10.100.223.148   k8s-kafkajmx-zoo3-6a383ef429-e2aa94
 ## Adding some graphs to prometheus
 Navigate to localhost:9090 and click on the graphs tab. 
 using the ui you can quickly explore metrics and visualize them
-This metric represents -> kafka_server_brokertopicmetrics_messagesin_total
-![Prometheus UI](assets/prometheus-metric1.png)
-![Prometheus UI](assets/metrics.png)
-![Prometheus UI](assets/messages-in-total.png)
-![Prometheus UI](assets/message-expire.png)
-![Prometheus UI](assets/producer-requests.png)
+![Prometheus Metrics](assets/metrics.png)
+![Prometheus Metric](assets/prometheus-metric1.png)
+![Prometheus Metric](assets/messages-in-total.png)
+![Prometheus Metric](assets/message-expire.png)
+![Prometheus Metric](assets/producer-requests.png)
 
 
 
