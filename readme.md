@@ -311,6 +311,14 @@ In the prometheus UI navigate to the menu item  status -> rules
 In the prometheus UI navigate to the menu item  alerts
 ![Prometheus Alerts](assets/alerts.png)
 
-# Example alert
+# Example Alert
+- Pending
 ![Prometheus alert](assets/alert-example1.png)
+- Firing
 ![Prometheus alert](assets/alert-example2.png)
+
+When an alert fires it follows its coonfiguration in the alertmanager.yml which is populated through the values file. 
+- From here you can control the frequency of alerts per group
+- Alert intervals
+- Alert timeouts
+- Alert routing through integrations, such as slack or email
