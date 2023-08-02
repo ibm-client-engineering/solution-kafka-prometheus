@@ -229,7 +229,9 @@ make consumer
 
 
 # Custom JMX EXPORTER
-In this ection we will spin up a custom JMX application that will export some metrics.
+In this section we will spin up a custom JMX application that will export some metrics.
+This exporter is written in JAVA and can be found here within the kafka-jmx-exporter folder.
+![Custom JMX Exporter](assets/custom-app.png)
 
 ## Enter the project directory
 ```bash
@@ -271,6 +273,8 @@ zoo3         LoadBalancer   10.100.223.148   k8s-kafkajmx-zoo3-6a383ef429-e2aa94
 ```
 
 
+
+
 ## Adding some graphs to prometheus
 Navigate to localhost:9090 and click on the graphs tab. 
 using the ui you can quickly explore metrics and visualize them
@@ -280,7 +284,11 @@ This metric represents -> kafka_server_brokertopicmetrics_messagesin_total
 
 ## Check out the listed targets for prometheus
 Navigate to localhost:9090 and click on the status menu and select targets
-- notice more thanthe kafka targets are available. prometheus scans for annotations of what to monitor
+- notice more that the kafka targets are available. prometheus scans for annotations of what to monitor
+- the KAFKA JMX Exporter targets are the ones on port 19000
+- the custom JMX exporter is on port 8080
+- you can also tell which targets are kafka and which are custom by looking at the labels
+
 ![Prometheus Targets](assets/prometheus-targets.png)
 
 
