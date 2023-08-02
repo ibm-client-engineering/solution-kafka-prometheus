@@ -18,7 +18,7 @@
 
 ## Deployment
 
- Preqs
+- Preqs
   - kafkacat
   
  Zookeeper
@@ -307,6 +307,10 @@ In the prometheus UI navigate to the menu item  status -> rules
 ![Prometheus Rules](assets/rules.png)
 
 
-## Checkout the alerts
+## Checkout the Alerts
 In the prometheus UI navigate to the menu item  alerts
 ![Prometheus Alerts](assets/alerts.png)
+
+# Example alert
+![Prometheus alert](assets/alert-example1.png)
+![Prometheus alert](assets/alert-example2.png)

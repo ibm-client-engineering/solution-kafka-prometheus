@@ -22,7 +22,7 @@ serverFiles:
             description: 'Under-replicated partitions means that one or more replicas are not available. This is usually because a broker is down.  Restart the broker, and check for errors in the logs.'
 
         - alert: Active_Controller
-          expr: sum(kafka_controller_KafkaController_ActiveControllerCount{executor_name="kafka"})by(service_name) != 1
+          expr: kafka_controller_kafkacontroller_activecontrollercount != 1
           for: 1m
           labels:
             severity: critical
@@ -133,11 +133,23 @@ alertmanagerFiles:
     global:
       resolve_timeout: 1m
       slack_api_url: 'https://hooks.slack.com/services/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'
+      smtp_smarthost: http://example-mail-service:25
+      smtp_from: 'example@example.co'
+
     route:
       receiver: 'slack-notifications'
+#      receiver: default-receiver
+      group_wait: 10s
+      group_interval: 5m
+      repeat_interval: 3h            
     receivers:
     - name: 'slack-notifications'
       slack_configs:
       - channel: '#prometheus-integration'
         send_resolved: true
         icon_url: https://avatars3.githubusercontent.com/u/3380462
+
+    - name: default-receiver
+      email_configs:
+      - to: chris.watkins@ibm.com
+
