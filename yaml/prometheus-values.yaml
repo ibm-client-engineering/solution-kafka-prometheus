@@ -22,7 +22,7 @@ serverFiles:
             description: 'Under-replicated partitions means that one or more replicas are not available. This is usually because a broker is down.  Restart the broker, and check for errors in the logs.'
 
         - alert: Active_Controller
-          expr: sum(kafka_controller_kafkacontroller_activecontrollercount) != 1
+          expr: sum(kafka_controller_kafkacontroller_activecontrollercount) < 1
           for: 1m
           labels:
             severity: critical
@@ -133,12 +133,11 @@ alertmanagerFiles:
     global:
       resolve_timeout: 1m
       slack_api_url: 'https://hooks.slack.com/services/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'
-
     route:
       receiver: 'slack-notifications'
       group_wait: 10s
       group_interval: 1m
-      repeat_interval: 3h            
+      repeat_interval: 1m            
     receivers:
     - name: 'slack-notifications'
       slack_configs:

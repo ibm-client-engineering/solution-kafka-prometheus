@@ -322,3 +322,10 @@ When an alert fires it follows its coonfiguration in the alertmanager.yml which 
 - Alert intervals
 - Alert timeouts
 - Alert routing through integrations, such as slack or email
+
+
+## Explore java JMX Metrics through jconsole
+```
+jconsole <BROKER_URL:BROKER_PORT>
+```
+![jConsole](assets/jconsole.png)

@@ -12,6 +12,10 @@ spec:
       targetPort: 9092
       protocol: TCP
       name: port-9092
+    - port: 9999
+      targetPort: 9999
+      protocol: TCP
+      name: port-9999
   type: LoadBalancer
   selector:
     app: kafka1-pod
@@ -30,6 +34,10 @@ spec:
       targetPort: 9092
       protocol: TCP
       name: port-9092
+    - port: 9999
+      targetPort: 9999
+      protocol: TCP
+      name: port-9999
   type: LoadBalancer
   selector:
     app: kafka2-pod
@@ -48,6 +56,10 @@ spec:
       targetPort: 9092
       protocol: TCP
       name: port-9092
+    - port: 9999
+      targetPort: 9999
+      protocol: TCP
+      name: port-9999
   type: LoadBalancer
   selector:
     app: kafka3-pod

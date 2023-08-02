@@ -124,3 +124,5 @@ producer:
 list-brokers:
 	@kcat -L -b  ${BROKER1} 
 	
+exec:
+	@kubectk -n kafka-jmx-monitor  exec -it kafka1-pod /bin/bash 
