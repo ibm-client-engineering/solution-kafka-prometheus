@@ -191,10 +191,11 @@ helm repo add prometheus-community https://prometheus-community.github.io/helm-c
 ```
 
 ## Install prometheus
+Prometheus is installed by helm using a chart. This chart can take a supplemental yaml file to bake in rules, alerting and integrations. A prebuilt values file is provided in the yaml folder.
+
 ```
-helm upgrade -i prometheus prometheus-community/prometheus \
-    --namespace prometheus \
-    --set alertmanager.persistentVolume.storageClass="gp2",server.persistentVolume.storageClass="gp2"
+
+helm install -f yaml/prometheus-values.yaml prometheus -n prometheus prometheus-community/prometheus  --set alertmanager.persistentVolume.storageClass="gp2",server.persistentVolume.storageClass="gp2"
 
 
 NAME: prometheus
