@@ -136,6 +136,8 @@ make consumer
 # Custom JMX EXPORTER
 In this section we will spin up a custom JMX application that will export some metrics.
 This exporter is written in JAVA and can be found here within the kafka-jmx-exporter folder.
+- [kafka-jmx-exporter](./kafka-jmx-exporter)
+- you may build this container / project yourself or pull the existing image from docker hub. -> [kafka-jmx-exporter](https://hub.docker.com/repository/docker/chriswatkinsibm/kafka-jmx-monitor/general)
 ![Custom JMX Exporter](assets/custom-app.png)
 
 ## Enter the project directory
