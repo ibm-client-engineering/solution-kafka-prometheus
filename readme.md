@@ -12,11 +12,11 @@
 # Solution Strategy
 
 ## Overview
+- [Prometheus How To ](https://prometheus.io/docs/prometheus/latest/getting_started/)
 
 ## Building Block View
 
 ## Deployment
-
 
  Preqs
   - kafkacat
@@ -115,6 +115,70 @@ Metadata for all topics (from broker 1: k8s-kafkajmx-kafka1-af652f4188-1a664c27a
 ```
 
 
+
+## TESTING KAFKA
+open 2 terminals, one will be for the producer, the other for the consumer
+- uses the following make commands to send some test data through
+
+```
+## Populate kafka with some Data 
+make populate
+
+```
+
+```
+## Populate kafka with some Data 
+make consumer
+
+```
+
+
+# Custom JMX EXPORTER
+In this section we will spin up a custom JMX application that will export some metrics.
+This exporter is written in JAVA and can be found here within the kafka-jmx-exporter folder.
+![Custom JMX Exporter](assets/custom-app.png)
+
+## Enter the project directory
+```bash
+cd kafka-jmx-exporter
+```
+
+## Create the jmx exporter config map
+This configmap relies on the existing KAFKA service enspoint. So be sure to have the kafka service and pod up beforehand
+```bash
+kubectl create configmap kafka-jmx-monitor-config --from-literal=jmx_ip=<SERVICE DNS ENTRY FOR THE KAFKA_POD> --from-literal=jmx_port=9999 --from-literal=jmx_user='' --from-literal=jmx_pass='' --from-file=metrics.txt -n kafka-jmx-monitor
+```
+
+## Create the service and pod
+```bash
+kubectl apply -f kafka-jmx-monitor.yaml -n kafka-jmx-monitor
+kubectl apply -f kafka-jmx-monitor-service.yaml -n kafka-jmx-monitor
+```
+
+## get the service DNS entry, and visit from your browser, we are looking for -> kafka-jmx
+- you can see the entry runs on port 8080 and is k8s-kafkajmx-kafkajmx-71f15678d6-e254a50912e19d7c.elb.us-east-1.amazonaws.com:8080
+- you can visit this in the browser to directly see the metrics being generated
+- the custom monitor is annotated so that prometheus will automatically pickup these metrics and report on them
+
+```bash
+kubectl get svc -n kafka-jmx-monitor
+
+NAME         TYPE           CLUSTER-IP       EXTERNAL-IP                                                                     PORT(S)                                        AGE
+kafka-jmx    LoadBalancer   10.100.50.104    k8s-kafkajmx-kafkajmx-71f15678d6-e254a50912e19d7c.elb.us-east-1.amazonaws.com   8080:32475/TCP                                 4m30s
+kafka-jmx1   LoadBalancer   10.100.198.103   k8s-kafkajmx-kafkajmx-36b4e7d354-257752cdafb8e7c7.elb.us-east-1.amazonaws.com   9999:31410/TCP                                 53m
+kafka-jmx2   LoadBalancer   10.100.72.184    k8s-kafkajmx-kafkajmx-0eb72b716c-31897e8b9c5db0f6.elb.us-east-1.amazonaws.com   9999:31080/TCP                                 53m
+kafka-jmx3   LoadBalancer   10.100.181.211   k8s-kafkajmx-kafkajmx-ab210eb8ca-7de291bd2d4fc8ac.elb.us-east-1.amazonaws.com   9999:30148/TCP                                 53m
+kafka1       LoadBalancer   10.100.52.233    k8s-kafkajmx-kafka1-af652f4188-1a664c27aa4d0461.elb.us-east-1.amazonaws.com     9092:32561/TCP                                 14m
+kafka2       LoadBalancer   10.100.63.241    k8s-kafkajmx-kafka2-4c9b62526e-d0000022df5dcde0.elb.us-east-1.amazonaws.com     9092:31420/TCP                                 14m
+kafka3       LoadBalancer   10.100.83.181    k8s-kafkajmx-kafka3-c4287d8998-a52e4aeb9aa9190a.elb.us-east-1.amazonaws.com     9092:32225/TCP                                 14m
+zoo1         LoadBalancer   10.100.123.108   k8s-kafkajmx-zoo1-a44207430c-831d5ac1e5f74229.elb.us-east-1.amazonaws.com       2181:31859/TCP,2888:30026/TCP,3888:30216/TCP   20h
+zoo2         LoadBalancer   10.100.175.26    k8s-kafkajmx-zoo2-1a51e6edaf-48d45bb5992a17c9.elb.us-east-1.amazonaws.com       2181:31564/TCP,2888:32611/TCP,3888:32495/TCP   20h
+zoo3         LoadBalancer   10.100.223.148   k8s-kafkajmx-zoo3-6a383ef429-e2aa947cf2094fe4.elb.us-east-1.amazonaws.com       2181:30159/TCP,2888:30905/TCP,3888:31708/TCP   20h
+
+```
+
+
+
 # Prometheus
 ## Prometheus setup
 ```
@@ -210,71 +274,6 @@ kubectl port-forward  $PROMETHEUS_SERVER -n $PROMETHEUS_NS 9090
 
 
 
-
-## TESTING KAFKA
-open 2 terminals, one will be for the producer, the other for the consumer
-- uses the following make commands to send some test data through
-
-```
-## Populate kafka with some Data 
-make populate
-
-```
-
-```
-## Populate kafka with some Data 
-make consumer
-
-```
-
-
-# Custom JMX EXPORTER
-In this section we will spin up a custom JMX application that will export some metrics.
-This exporter is written in JAVA and can be found here within the kafka-jmx-exporter folder.
-![Custom JMX Exporter](assets/custom-app.png)
-
-## Enter the project directory
-```bash
-cd kafka-jmx-exporter
-```
-
-## Create the jmx exporter config map
-This configmap relies on the existing KAFKA service enspoint. So be sure to have the kafka service and pod up beforehand
-```bash
-kubectl create configmap kafka-jmx-monitor-config --from-literal=jmx_ip=<SERVICE DNS ENTRY FOR THE KAFKA_POD> --from-literal=jmx_port=9999 --from-literal=jmx_user='' --from-literal=jmx_pass='' --from-file=metrics.txt -n kafka-jmx-monitor
-```
-
-## Create the service and pod
-```bash
-kubectl apply -f kafka-jmx-monitor.yaml -n kafka-jmx-monitor
-kubectl apply -f kafka-jmx-monitor-service.yaml -n kafka-jmx-monitor
-```
-
-## get the service DNS entry, and visit from your browser, we are looking for -> kafka-jmx
-- you can see the entry runs on port 8080 and is k8s-kafkajmx-kafkajmx-71f15678d6-e254a50912e19d7c.elb.us-east-1.amazonaws.com:8080
-- you can visit this in the browser to directly see the metrics being generated
-- the custom monitor is annotated so that prometheus will automatically pickup these metrics and report on them
-
-```bash
-kubectl get svc -n kafka-jmx-monitor
-
-NAME         TYPE           CLUSTER-IP       EXTERNAL-IP                                                                     PORT(S)                                        AGE
-kafka-jmx    LoadBalancer   10.100.50.104    k8s-kafkajmx-kafkajmx-71f15678d6-e254a50912e19d7c.elb.us-east-1.amazonaws.com   8080:32475/TCP                                 4m30s
-kafka-jmx1   LoadBalancer   10.100.198.103   k8s-kafkajmx-kafkajmx-36b4e7d354-257752cdafb8e7c7.elb.us-east-1.amazonaws.com   9999:31410/TCP                                 53m
-kafka-jmx2   LoadBalancer   10.100.72.184    k8s-kafkajmx-kafkajmx-0eb72b716c-31897e8b9c5db0f6.elb.us-east-1.amazonaws.com   9999:31080/TCP                                 53m
-kafka-jmx3   LoadBalancer   10.100.181.211   k8s-kafkajmx-kafkajmx-ab210eb8ca-7de291bd2d4fc8ac.elb.us-east-1.amazonaws.com   9999:30148/TCP                                 53m
-kafka1       LoadBalancer   10.100.52.233    k8s-kafkajmx-kafka1-af652f4188-1a664c27aa4d0461.elb.us-east-1.amazonaws.com     9092:32561/TCP                                 14m
-kafka2       LoadBalancer   10.100.63.241    k8s-kafkajmx-kafka2-4c9b62526e-d0000022df5dcde0.elb.us-east-1.amazonaws.com     9092:31420/TCP                                 14m
-kafka3       LoadBalancer   10.100.83.181    k8s-kafkajmx-kafka3-c4287d8998-a52e4aeb9aa9190a.elb.us-east-1.amazonaws.com     9092:32225/TCP                                 14m
-zoo1         LoadBalancer   10.100.123.108   k8s-kafkajmx-zoo1-a44207430c-831d5ac1e5f74229.elb.us-east-1.amazonaws.com       2181:31859/TCP,2888:30026/TCP,3888:30216/TCP   20h
-zoo2         LoadBalancer   10.100.175.26    k8s-kafkajmx-zoo2-1a51e6edaf-48d45bb5992a17c9.elb.us-east-1.amazonaws.com       2181:31564/TCP,2888:32611/TCP,3888:32495/TCP   20h
-zoo3         LoadBalancer   10.100.223.148   k8s-kafkajmx-zoo3-6a383ef429-e2aa947cf2094fe4.elb.us-east-1.amazonaws.com       2181:30159/TCP,2888:30905/TCP,3888:31708/TCP   20h
-
-```
-
-
-
-
 ## Check out the listed targets for prometheus
 Navigate to localhost:9090 and click on the status menu and select targets
 - notice more that the kafka targets are available. prometheus scans for annotations of what to monitor
@@ -295,3 +294,10 @@ using the ui you can quickly explore metrics and visualize them
 ![Prometheus Metric](assets/message-expire.png)
 ![Prometheus Metric](assets/producer-requests.png)
 
+
+## Checkout the Rules
+In the prometheus UI navigate to the menu item  status -> rules
+- These rules are created in your values override file when prometheus is installed by helm
+- The rules are stored in a configmap in the prometheus namespace
+
+![Prometheus Rules](assets/rules.png)
