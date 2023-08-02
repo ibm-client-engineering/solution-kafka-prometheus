@@ -131,7 +131,7 @@ make populate
 make consumer
 
 ```
-
+![Consumer](assets/consumer.webm.mov)
 
 # Custom JMX EXPORTER
 In this section we will spin up a custom JMX application that will export some metrics.
@@ -178,6 +178,13 @@ zoo2         LoadBalancer   10.100.175.26    k8s-kafkajmx-zoo2-1a51e6edaf-48d45b
 zoo3         LoadBalancer   10.100.223.148   k8s-kafkajmx-zoo3-6a383ef429-e2aa947cf2094fe4.elb.us-east-1.amazonaws.com       2181:30159/TCP,2888:30905/TCP,3888:31708/TCP   20h
 
 ```
+
+
+## Explore java JMX Metrics through jconsole
+```
+jconsole <BROKER_URL:BROKER_PORT>
+```
+![jConsole](assets/jconsole.png)
 
 
 
@@ -323,9 +330,3 @@ When an alert fires it follows its coonfiguration in the alertmanager.yml which 
 - Alert timeouts
 - Alert routing through integrations, such as slack or email
 
-
-## Explore java JMX Metrics through jconsole
-```
-jconsole <BROKER_URL:BROKER_PORT>
-```
-![jConsole](assets/jconsole.png)
