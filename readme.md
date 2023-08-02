@@ -131,7 +131,7 @@ make populate
 make consumer
 
 ```
-![Consumer](assets/consumer.webm.mov)
+![Consumer](assets/consumer.gif)
 
 # Custom JMX EXPORTER
 In this section we will spin up a custom JMX application that will export some metrics.
