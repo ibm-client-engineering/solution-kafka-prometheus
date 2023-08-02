@@ -324,7 +324,7 @@ In the prometheus UI navigate to the menu item  alerts
 - Firing
 ![Prometheus alert](assets/alert-example2.png)
 
-When an alert fires it follows its coonfiguration in the alertmanager.yml which is populated through the values file. 
+When an alert fires it follows its configuration in the alertmanager.yml which is populated through the values file. 
 - From here you can control the frequency of alerts per group
 - Alert intervals
 - Alert timeouts
