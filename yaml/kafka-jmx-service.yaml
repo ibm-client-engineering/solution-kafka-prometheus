@@ -1,0 +1,57 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka-jmx1
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: external
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
+    service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+spec:
+  ports:
+    - port: 9999
+      targetPort: 9999
+      protocol: TCP
+      name: port-9999
+  type: LoadBalancer
+  selector:
+    app: kafka1-pod
+---
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka-jmx2
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: external
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
+    service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+spec:
+  ports:
+    - port: 9999
+      targetPort: 9999
+      protocol: TCP
+      name: port-9999
+  type: LoadBalancer
+  selector:
+    app: kafka2-pod
+---
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka-jmx3
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: external
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
+    service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+spec:
+  ports:
+    - port: 9999
+      targetPort: 9999
+      protocol: TCP
+      name: port-9999
+  type: LoadBalancer
+  selector:
+    app: kafka3-pod
+---
