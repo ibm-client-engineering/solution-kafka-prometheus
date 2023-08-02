@@ -178,8 +178,8 @@ For more information on running Prometheus, visit:
 https://prometheus.io/
 ```
 
-## open prometheus UI
-- setup a portforwarding session for premetheus using the make command
+## Open the prometheus UI
+- setup a port-forwarding session for prometheus using the make command
 - open your  browser to localhost:9090
 ```
 make pf-prometheus 
@@ -189,7 +189,7 @@ PROMETHEUS_SERVER=prometheus-server-758d4c978c-cddlk; \
 kubectl port-forward  $PROMETHEUS_SERVER -n $PROMETHEUS_NS 9090
 
 ```
-
+![Prometheus UI](assets/prometheus-ui.png)
 
 
 ## Validate prometheus
