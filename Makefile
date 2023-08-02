@@ -13,6 +13,7 @@ BROKER1=$(shell kubectl get svc -n  ${NS} | grep kafka1| tr -s ' '| cut -d  ' ' 
 BROKER2=$(shell kubectl get svc -n  ${NS} | grep kafka2| tr -s ' '| cut -d  ' ' -f 4)
 BROKER3=$(shell kubectl get svc -n  ${NS} | grep kafka3| tr -s ' '| cut -d  ' ' -f 4)
 
+k8s-kafkajmx-kafka1jm-d83da667c9-977cefab2d7bd01c.elb.us-east-1.amazonaws.com
 #PROMETHEUS_NS=prometheus
 #PROMETHEUS_SERVER=$(shell kubectl get pods -n prometheus | grep server| tr -s ' '| cut -d ' ' -f1)	
 
@@ -125,3 +126,4 @@ producer:
 	
 list-brokers:
 	@kcat -L -b  ${BROKER1} 
+	

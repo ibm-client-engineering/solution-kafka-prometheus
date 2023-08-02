@@ -305,3 +305,8 @@ In the prometheus UI navigate to the menu item  status -> rules
 - The rules are stored in a configmap in the prometheus namespace
 
 ![Prometheus Rules](assets/rules.png)
+
+
+## Checkout the alerts
+In the prometheus UI navigate to the menu item  alerts
+~[Prometheus Alerts](assets/alerts.png)

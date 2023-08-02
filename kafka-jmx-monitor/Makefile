@@ -32,9 +32,6 @@ docker: build
 	@docker tag kafka-jmx-monitor:latest chriswatkinsibm/kafka-jmx-monitor:latest
 	@docker push chriswatkinsibm/kafka-jmx-monitor:latest
 
-secret:
-	@kubectl create secret -n cp4i docker-registry chris-registry --docker-server=registry.watkinslabs.com --docker-username=chris --docker-password='p825amwX$$'
-
 delete-configmap:
 	@-kubectl delete configmap kafka-jmx-monitor-config -n kafka-jmx-monitor
 

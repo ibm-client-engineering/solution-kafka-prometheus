@@ -154,8 +154,6 @@ public class KafkaJmxClient {
 
         Map<String, String[]> env = new HashMap<>();
         String[] credentials = new String[] {config.get("jmx_user"), config.get("jmx_pass")};
-        
-    
 
         try {
         
