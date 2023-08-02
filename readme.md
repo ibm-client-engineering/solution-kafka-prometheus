@@ -286,9 +286,10 @@ Navigate to localhost:9090 and click on the status menu and select targets
 
 
 
-## Adding some graphs to prometheus
+## Explore metrics
 Navigate to localhost:9090 and click on the graphs tab. 
-using the ui you can quickly explore metrics and visualize them
+- using the UI you can quickly explore metrics and visualize them
+- these are temporary graphs. for permanent graphs, they must be configured in the values.yaml file.
 ![Prometheus Metrics](assets/metrics.png)
 ![Prometheus Metric](assets/prometheus-metric1.png)
 ![Prometheus Metric](assets/messages-in-total.png)
