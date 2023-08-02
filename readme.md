@@ -122,7 +122,7 @@ open 2 terminals, one will be for the producer, the other for the consumer
 
 ```
 ## Populate kafka with some Data 
-make populate
+make producer
 
 ```
 
