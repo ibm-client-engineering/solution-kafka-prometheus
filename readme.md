@@ -309,4 +309,4 @@ In the prometheus UI navigate to the menu item  status -> rules
 
 ## Checkout the alerts
 In the prometheus UI navigate to the menu item  alerts
-~[Prometheus Alerts](assets/alerts.png)
+![Prometheus Alerts](assets/alerts.png)
