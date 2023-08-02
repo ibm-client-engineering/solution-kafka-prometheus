@@ -319,10 +319,14 @@ In the prometheus UI navigate to the menu item  alerts
 ![Prometheus Alerts](assets/alerts.png)
 
 # Example Alert
-- This lists all metrics you wish to alert on. Green is good, yellow is pending meaning it MIGHT be an alert but it hasnt fallen outside of thresholds yet. Red is an alert and it has fallen outside of thresholds, this will send an alert via alertmonitor and the set alert route. Which may be slack, email or a script.
-- Pending
+- This lists all metrics you wish to alert on.
+- Green is good
+- Yellow is pending, meaning it MIGHT be an alert but it hasn't fallen outside of thresholds yet
+- Red is an alert and it has fallen outside of thresholds, this will send an alert via alertmonitor and the set alert route. Which may be slack, email or a script.
+
+- Example of a Pending alert
 ![Prometheus alert](assets/alert-example1.png)
-- Firing
+- Example of a Firing alert
 ![Prometheus alert](assets/alert-example2.png)
 
 When an alert fires it follows its configuration in the alertmanager.yml which is populated through the values file. 
