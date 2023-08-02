@@ -137,7 +137,7 @@ make consumer
 In this section we will spin up a custom JMX application that will export some metrics.
 This exporter is written in JAVA and can be found here within the kafka-jmx-exporter folder.
 - [kafka-jmx-exporter](./kafka-jmx-exporter)
-- you may build this container / project yourself or pull the existing image from docker hub. -> [kafka-jmx-exporter](https://hub.docker.com/repository/docker/chriswatkinsibm/kafka-jmx-monitor/general)
+- [Image for kafka-jmx-exporter](https://hub.docker.com/repository/docker/chriswatkinsibm/kafka-jmx-monitor/general) you may build this container / project yourself or pull the existing image from docker hub
 ![Custom JMX Exporter](assets/custom-app.png)
 
 ## Enter the project directory
@@ -146,7 +146,7 @@ cd kafka-jmx-exporter
 ```
 
 ## Create the jmx exporter config map
-This configmap relies on the existing KAFKA service enspoint. So be sure to have the kafka service and pod up beforehand
+This configmap relies on the existing KAFKA service endpoint. So be sure to have the kafka service and pod up beforehand
 ```bash
 kubectl create configmap kafka-jmx-monitor-config --from-literal=jmx_ip=<SERVICE DNS ENTRY FOR THE KAFKA_POD> --from-literal=jmx_port=9999 --from-literal=jmx_user='' --from-literal=jmx_pass='' --from-file=metrics.txt -n kafka-jmx-monitor
 ```
