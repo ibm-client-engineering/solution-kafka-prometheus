@@ -280,6 +280,14 @@ Navigate to localhost:9090 and click on the graphs tab.
 using the ui you can quickly explore metrics and visualize them
 This metric represents -> kafka_server_brokertopicmetrics_messagesin_total
 ![Prometheus UI](assets/prometheus-metric1.png)
+![Prometheus UI](assets/metrics.png)
+![Prometheus UI](assets/messages-in-total.png)
+![Prometheus UI](assets/message-expire.png)
+![Prometheus UI](assets/producer-requests.png)
+
+
+
+
 
 
 ## Check out the listed targets for prometheus
