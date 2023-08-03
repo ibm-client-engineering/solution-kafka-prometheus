@@ -28,7 +28,7 @@ public class KafkaJmxClient {
            static CollectorRegistry  registry = new CollectorRegistry();
     public static List<Object>       collectors = new ArrayList<Object>();
 
-
+    public static int                time=1;
     
 
     public static void main(String[] args) throws Exception {
@@ -76,6 +76,8 @@ public class KafkaJmxClient {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        // CUSTOM METRIC
+        lines.add("KAFKALAB");
         return lines;
     }
 
@@ -129,6 +131,8 @@ public class KafkaJmxClient {
 
     public static void register_metrics()  throws Exception  {
                 // Create a Gauge for each metric
+        
+        
         for (String metric : KafkaJmxClient.metrics) {
             Gauge gauge = Gauge.build()
                         .name(getNameFromMetric(metric))
@@ -136,7 +140,8 @@ public class KafkaJmxClient {
                         .register(KafkaJmxClient.registry);
             KafkaJmxClient.collectors.add(gauge);
 
-        }
+        }  
+
     }
 
 
@@ -168,6 +173,10 @@ public class KafkaJmxClient {
             for( String metric : KafkaJmxClient.metrics){
                 //System.out.println("- "+metric);
                 // ObjectName should be one of the Kafka MBeans, for example kafka.server:type=BrokerTopicMetrics,name=MessagesInPerSec
+                if( metric=="KAFKALAB") {
+                    insert_custom_var();
+                    continue;
+                }
                 ObjectName mbeanName = new ObjectName(metric);
                 MBeanInfo mbeanInfo =null;
                 try{
@@ -200,6 +209,7 @@ public class KafkaJmxClient {
                     }
 
                 }
+
                 //System.out.println("----------------------------------------");
             }
 
@@ -208,6 +218,20 @@ public class KafkaJmxClient {
             printNestedException(e);
         }
 
+    }
+
+    private static void insert_custom_var(){
+        // Custom variable
+       int index=KafkaJmxClient.metrics.indexOf("KAFKALAB");
+       System.out.println("Index: " + index);
+       if (index>-1) {
+            Gauge gauge= (Gauge) KafkaJmxClient.collectors.get(index);
+            gauge.inc();
+            KafkaJmxClient.time++;
+            KafkaJmxClient.time%=100;
+            double  value=100*Math.sin(2*Math.PI*.015*KafkaJmxClient.time) ;
+            gauge.set(((Number)  value).doubleValue());
+        }
     }
 
     private static void printNestedException(Throwable e) {
