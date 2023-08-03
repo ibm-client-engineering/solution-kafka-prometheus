@@ -7,10 +7,17 @@
 # Introduction and Goals
 
 ## Background and Business Problem
+To setup and test kafka with JMX, using prometheus as a visualization tool for exploration.
 
 
 # Solution Strategy
+Setup base the infrastructure, kafka/zookeeper,prometheus, and two jmx exporters, and configure for use.
 
+# Architecture Diagram
+
+<img src="https://user-images.githubusercontent.com/95059/166857681-99c92cdc-fa62-414
+
+![kafka-lab](assets/kafka-lab.png)
 ## Overview
 - [Prometheus How To ](https://prometheus.io/docs/prometheus/latest/getting_started/)
 
@@ -18,16 +25,6 @@
 
 ## Deployment
 
-- Preqs
-  - kafkacat
-  
- Zookeeper
-   Zookeeper Service
-   Zookeeper Deployment
- Kafka Service
- Kafka Deployment
- Prometheus Deployment
- Custom JMX Monitor
 
 ## PREQS
 
@@ -42,8 +39,6 @@ $ curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scr
 $ chmod 700 get_helm.sh
 $ ./get_helm.sh
 ```
-
-
 
 # Zookeeper
 
@@ -334,4 +329,5 @@ When an alert fires it follows its configuration in the alertmanager.yml which i
 - Alert intervals
 - Alert timeouts
 - Alert routing through integrations, such as slack or email
+
 
