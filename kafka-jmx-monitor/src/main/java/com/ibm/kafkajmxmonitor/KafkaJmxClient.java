@@ -48,7 +48,7 @@ public class KafkaJmxClient {
         // Call grab_metrics() method every 30 seconds
         while (true) {
             KafkaJmxClient.grab_metrics();
-            Thread.sleep(3000);
+            Thread.sleep(500);
         }        
     }
 
@@ -223,7 +223,7 @@ public class KafkaJmxClient {
     private static void insert_custom_var(){
         // Custom variable
        int index=KafkaJmxClient.metrics.indexOf("KAFKALAB");
-       System.out.println("Index: " + index);
+       //System.out.println("Index: " + index);
        if (index>-1) {
             Gauge gauge= (Gauge) KafkaJmxClient.collectors.get(index);
             gauge.inc();
