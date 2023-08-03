@@ -15,7 +15,6 @@ Setup base the infrastructure, kafka/zookeeper,prometheus, and two jmx exporters
 
 # Architecture Diagram
 
-<img src="https://user-images.githubusercontent.com/95059/166857681-99c92cdc-fa62-414"/>
 
 ![kafka-lab](assets/kafka-lab.png)
 ## Overview
