@@ -13,14 +13,11 @@ To setup and test kafka with JMX, using prometheus as a visualization tool for e
 # Solution Strategy
 Setup base the infrastructure, kafka/zookeeper,prometheus, and two jmx exporters, and configure for use.
 
-# Architecture Diagram
-
-
-![kafka-lab](assets/kafka-lab.png)
 ## Overview
 - [Prometheus How To ](https://prometheus.io/docs/prometheus/latest/getting_started/)
 
 ## Building Block View
+![kafka-lab](assets/kafka-lab.png)
 
 ## Deployment
 
